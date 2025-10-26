@@ -1,0 +1,74 @@
+﻿/**
+ * 
+ * WO 54897 Static Banner Rotation scripts
+ * Pandiyaraj Ramadas
+ * 
+ */
+var totalAdBanners = 0;
+var totalSeconds = 0;
+var previousLink = 0;
+var nextLink = 0;
+var timeOutObject;
+var adRotationDsc = [];
+var isTopBannerNavAllowedFlash = "";
+var isTopBannerNavAllowedStatic = "";
+var lastBannerPosition;
+var foundBanner = false;
+var lastBannerDisplayed;
+
+// JQUERY CODE TO DISABLE HYPERLINK POSTBACK
+$(document).ready(function () {
+    $('.topBannerPrevNavLink').click(function (evt) {
+        evt.preventDefault(); // stop the link going to the target page
+    });
+    $('.topBannerNextNavLink').click(function (evt) {
+        evt.preventDefault(); // stop the link going to the target page
+    });
+});
+
+function SaveBannerEvents(name, adAsset)
+{
+    //alert(name + " - " + adAsset);
+    var params = '{"bannerName":"' + name + '", "adAsset":"' + adAsset + '"}';
+        
+    // Get the current page name and append with WebMethod name for jquery
+    var sPath = window.location.pathname;
+    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+    sPage += "/SetLastViewTopBannerSession";
+
+    // jQuery code to call .net web method "SetLastViewTopBannerSession" and set current banner to session
+    $(document).ready(function () {
+
+        makeAjaxRequest(sPage,
+                        params,
+                        function (response) {
+                            if (response == 'timedout') {
+                                window.location = '/?ToLoginFrom=TIMEOUT';
+                            }
+                        },
+                        function (xhr, ajaxOptions, thrownError) {
+                        });
+    }); 
+}
+
+function BannerClickEvent(targetPage, adName,  adAsset)
+{
+    if (adName.length > 0)
+    {        
+        SaveEvent(
+            "Top Middle",
+            adName,
+            "Banner",
+            adAsset,
+            "",
+            document.URL,
+            "Click",
+            "",
+            "adClicked",
+            "WEB",
+            "",
+            "");
+    }
+    
+    window.location.href = targetPage;    
+}

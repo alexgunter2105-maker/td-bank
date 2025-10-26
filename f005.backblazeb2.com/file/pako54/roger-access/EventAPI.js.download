@@ -1,0 +1,151 @@
+$(document).ready(function () {
+
+    // this tracks "Click" events for every designated element on the page
+    $("[data-TrackClickEvent*='true']").each(function () {
+        WireupClickEventListener(this);
+    });
+
+});
+
+function WireupClickEventListener(e) {
+
+    $(e).click(function () {
+        SaveEvent(
+            $(this).attr("data-adLocation"),
+            $(this).attr("data-adName"),
+            $(this).attr("data-adType"),
+            $(this).attr("data-adAsset"),
+            "",
+            $(this).attr("data-adCurrentPage"),
+            $(this).attr("data-adPageActionClick"),
+            "",
+            $(this).attr("data-adEventTypeClick"),
+            $(this).attr("data-adEventSource"),
+            "",
+            "");
+    });
+   
+}
+
+function SaveEvent(adLocation, adName, adType, adAsset,
+            lastEvent, thePage, pageAction, programCode, eventType,
+            eventSource, emailSourceId, emailDescriptor)
+{
+    $.ajax({
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        url: 'EventAPI.aspx/SaveEvent',
+        data: JSON.stringify({
+            adLocation : adLocation,
+            adName : adName, 
+            adType : adType, 
+            adAsset : adAsset, 
+            lastEvent : lastEvent, 
+            thePage : thePage, 
+            pageAction : pageAction, 
+            programCode : programCode,
+            eventType : eventType,
+            eventSource : eventSource, 
+            emailSourceId : emailSourceId,
+            emailDescriptor : emailDescriptor
+        }),
+        error: function (xhr, ajaxOptions, thrownError) {
+            
+        }
+        
+    });
+}
+
+
+/* Layover page event trigger functions */
+function AA_layoverEvent_Display(adAsset)              { SaveEvent('Middle', 'Additional Account', 'Shadow Box', adAsset, null, 'Layover Additional Account', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function AA_layoverEvent_ClickContinue(adAsset)        { SaveEvent('Middle', 'Additional Account', 'Shadow Box', adAsset, null, 'Layover Additional Account', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function AA_layoverEvent_ClickNoThanks(adAsset)        { SaveEvent('Middle', 'Additional Account', 'Shadow Box', adAsset, null, 'Layover Additional Account', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function AA_layoverEvent_Abandoned(adAsset)            { SaveEvent('Middle', 'Additional Account', 'Shadow Box', adAsset, null, 'Layover Additional Account', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function ESIGN_layoverEvent_Display(adAsset)           { SaveEvent('Middle', 'Esign Enrollment', 'Shadow Box', adAsset, null, 'Layover Esign Enrollment', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function ESIGN_layoverEvent_ClickContinue(adAsset)     { SaveEvent('Middle', 'Esign Enrollment', 'Shadow Box', adAsset, null, 'Layover Esign Enrollment', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function ESIGN_layoverEvent_ClickNoThanks(adAsset)     { SaveEvent('Middle', 'Esign Enrollment', 'Shadow Box', adAsset, null, 'Layover Esign Enrollment', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function ESIGN_layoverEvent_Abandoned(adAsset)         { SaveEvent('Middle', 'Esign Enrollment', 'Shadow Box', adAsset, null, 'Layover Esign Enrollment', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function ESIGNRET_layoverEvent_Display(adAsset)        { SaveEvent('Middle', 'Esign Retention', 'Shadow Box', adAsset, null, 'Layover Esign Retention', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function ESIGNRET_layoverEvent_ClickContinue(adAsset)  { SaveEvent('Middle', 'Esign Retention', 'Shadow Box', adAsset, null, 'Layover Esign Retention', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function ESIGNRET_layoverEvent_ClickNoThanks(adAsset)  { SaveEvent('Middle', 'Esign Retention', 'Shadow Box', adAsset, null, 'Layover Esign Retention', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function ESIGNRET_layoverEvent_Abandoned(adAsset)      { SaveEvent('Middle', 'Esign Retention', 'Shadow Box', adAsset, null, 'Layover Esign Retention', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function ESIGNCIT_layoverEvent_Display(adAsset)        { SaveEvent('Middle', 'Esign Change In Terms', 'Shadow Box', adAsset, null, 'Layover Esign Change In Terms', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function ESIGNCIT_layoverEvent_ClickContinue(adAsset)  { SaveEvent('Middle', 'Esign Change In Terms', 'Shadow Box', adAsset, null, 'Layover Esign Change In Terms', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function ESIGNCIT_layoverEvent_ClickNoThanks(adAsset)  { SaveEvent('Middle', 'Esign Change In Terms', 'Shadow Box', adAsset, null, 'Layover Esign Change In Terms', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function ESIGNCIT_layoverEvent_Abandoned(adAsset)      { SaveEvent('Middle', 'Esign Change In Terms', 'Shadow Box', adAsset, null, 'Layover Esign Change In Terms', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function CLI_layoverEvent_Display(adAsset)             { SaveEvent('Middle', 'Free Pre-Approved CLI', 'Shadow Box', adAsset, null, 'Layover Free CLI', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function CLI_layoverEvent_ClickContinue(adAsset)       { SaveEvent('Middle', 'Free Pre-Approved CLI', 'Shadow Box', adAsset, null, 'Layover Free CLI', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function CLI_layoverEvent_ClickNoThanks(adAsset)       { SaveEvent('Middle', 'Free Pre-Approved CLI', 'Shadow Box', adAsset, null, 'Layover Free CLI', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function CLI_layoverEvent_Abandoned(adAsset)           { SaveEvent('Middle', 'Free Pre-Approved CLI', 'Shadow Box', adAsset, null, 'Layover Free CLI', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function CLI1_layoverEvent_Display(adAsset)            { SaveEvent('Middle', 'CLI 1st Login', 'Shadow Box', adAsset, null, 'Layover CLI 1st Login', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function CLI1_layoverEvent_ClickContinue(adAsset)      { SaveEvent('Middle', 'CLI 1st Login', 'Shadow Box', adAsset, null, 'Layover CLI 1st Login', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function CLI1_layoverEvent_ClickNoThanks(adAsset)      { SaveEvent('Middle', 'CLI 1st Login', 'Shadow Box', adAsset, null, 'Layover CLI 1st Login', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function CLI1_layoverEvent_Abandoned(adAsset)          { SaveEvent('Middle', 'CLI 1st Login', 'Shadow Box', adAsset, null, 'Layover CLI 1st Login', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function CLI2_layoverEvent_Display(adAsset)            { SaveEvent('Middle', 'CLI 2nd Login', 'Shadow Box', adAsset, null, 'Layover CLI 2nd Login', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function CLI2_layoverEvent_ClickContinue(adAsset)      { SaveEvent('Middle', 'CLI 2nd Login', 'Shadow Box', adAsset, null, 'Layover CLI 2nd Login', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function CLI2_layoverEvent_ClickNoThanks(adAsset)      { SaveEvent('Middle', 'CLI 2nd Login', 'Shadow Box', adAsset, null, 'Layover CLI 2nd Login', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function CLI2_layoverEvent_Abandoned(adAsset)          { SaveEvent('Middle', 'CLI 2nd Login', 'Shadow Box', adAsset, null, 'Layover CLI 2nd Login', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function CLI3_layoverEvent_Display(adAsset)            { SaveEvent('Middle', 'CLI 3rd Login', 'Shadow Box', adAsset, null, 'Layover CLI 3rd Login', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function CLI3_layoverEvent_ClickContinue(adAsset)      { SaveEvent('Middle', 'CLI 3rd Login', 'Shadow Box', adAsset, null, 'Layover CLI 3rd Login', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function CLI3_layoverEvent_ClickNoThanks(adAsset)      { SaveEvent('Middle', 'CLI 3rd Login', 'Shadow Box', adAsset, null, 'Layover CLI 3rd Login', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function CLI3_layoverEvent_Abandoned(adAsset)          { SaveEvent('Middle', 'CLI 3rd Login', 'Shadow Box', adAsset, null, 'Layover CLI 3rd Login', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function CLI4_layoverEvent_Display(adAsset)            { SaveEvent('Middle', 'Secondary CLI', 'Shadow Box', adAsset, null, 'Layover Secondary CLI', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function CLI4_layoverEvent_ClickContinue(adAsset)      { SaveEvent('Middle', 'Secondary CLI', 'Shadow Box', adAsset, null, 'Layover Secondary CLI', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function CLI4_layoverEvent_ClickNoThanks(adAsset)      { SaveEvent('Middle', 'Secondary CLI', 'Shadow Box', adAsset, null, 'Layover Secondary CLI', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function CLI4_layoverEvent_Abandoned(adAsset)          { SaveEvent('Middle', 'Secondary CLI', 'Shadow Box', adAsset, null, 'Layover Secondary CLI', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function DMC1_layoverEvent_Display(adAsset)            { SaveEvent('Middle', 'DMC 1st Login', 'Shadow Box', adAsset, null, 'Layover  DMC 1st Login', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function DMC1_layoverEvent_ClickContinue(adAsset)      { SaveEvent('Middle', 'DMC 1st Login', 'Shadow Box', adAsset, null, 'Layover  DMC 1st Login', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function DMC1_layoverEvent_ClickNoThanks(adAsset)      { SaveEvent('Middle', 'DMC 1st Login', 'Shadow Box', adAsset, null, 'Layover  DMC 1st Login', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function DMC1_layoverEvent_Abandoned(adAsset)          { SaveEvent('Middle', 'DMC 1st Login', 'Shadow Box', adAsset, null, 'Layover  DMC 1st Login', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function DMC2_layoverEvent_Display(adAsset)            { SaveEvent('Middle', 'DMC 2nd Login', 'Shadow Box', adAsset, null, 'Layover  DMC 2nd Login', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function DMC2_layoverEvent_ClickContinue(adAsset)      { SaveEvent('Middle', 'DMC 2nd Login', 'Shadow Box', adAsset, null, 'Layover  DMC 2nd Login', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function DMC2_layoverEvent_ClickNoThanks(adAsset)      { SaveEvent('Middle', 'DMC 2nd Login', 'Shadow Box', adAsset, null, 'Layover  DMC 2nd Login', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function DMC2_layoverEvent_Abandoned(adAsset)          { SaveEvent('Middle', 'DMC 2nd Login', 'Shadow Box', adAsset, null, 'Layover  DMC 2nd Login', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function AU_layoverEvent_Display(adAsset)              { SaveEvent('Middle', 'Authorized User', 'Shadow Box', adAsset, null, 'Layover  Authorized User', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function AU_layoverEvent_ClickContinue(adAsset)        { SaveEvent('Middle', 'Authorized User', 'Shadow Box', adAsset, null, 'Layover  Authorized User', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function AU_layoverEvent_ClickNoThanks(adAsset)        { SaveEvent('Middle', 'Authorized User', 'Shadow Box', adAsset, null, 'Layover  Authorized User', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function AU_layoverEvent_Abandoned(adAsset)            { SaveEvent('Middle', 'Authorized User', 'Shadow Box', adAsset, null, 'Layover  Authorized User', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+function CP_layoverEvent_Display(adAsset)              { SaveEvent('Middle', 'Credit Protection', 'Shadow Box', adAsset, null, 'Layover Credit Protection', 'Display', null, 'adDisplayed', 'WEB', null, null); }
+function CP_layoverEvent_ClickContinue(adAsset)        { SaveEvent('Middle', 'Credit Protection', 'Shadow Box', adAsset, null, 'Layover Credit Protection', 'Continue', null, 'adClicked', 'WEB', null, null); }
+function CP_layoverEvent_ClickNoThanks(adAsset)        { SaveEvent('Middle', 'Credit Protection', 'Shadow Box', adAsset, null, 'Layover Credit Protection', 'No Thanks', null, 'adClicked', 'WEB', null, null); }
+function CP_layoverEvent_Abandoned(adAsset)            { SaveEvent('Middle', 'Credit Protection', 'Shadow Box', adAsset, null, 'Layover Credit Protection', 'Abandoned', null, 'adClosed', 'WEB', null, null); }
+
+
+function EventScrollingFlashBannerClicked() {
+
+    SaveEvent(
+        "Top Middle",
+        $("#SWFContainer").attr("adName"),
+        "Banner",
+        $("#SWFContainer").attr("adAsset"),
+        "",
+        document.URL,
+        "Click",
+        "",
+        "adClicked",
+        "WEB",
+        "",
+        "");
+}
+
+
+                        //adLocation, adName, adType, adAsset,lastEvent, thePage, pageAction, programCode, eventType,eventSource, emailSourceId, emailDescriptor
+function PMB_Selected() { SaveEvent(null, null, null, null, null, 'CreditOneBank.com Access Your Account', 'Submit', null, 'Pay my bill', 'WEB', null, null); }
+function PMB_ExpressDebitSelected() { SaveEvent(null, null, null, null, null, 'Pay My Bill', 'Submit', null, 'Express Debit Pymnt', 'WEB', null, null); }
+function PMB_ExpressDebit_Enter() { SaveEvent(null, null, null, null, null, 'Pay My Bill', 'Submit', null, 'Express Debit entry', 'WEB', null, null); }
+function PMB_ExpressDebit_Submit() { SaveEvent(null, null, null, null, null, 'Pay My Bill', 'Submit', null, 'Express Debit Submit', 'WEB', null, null); }

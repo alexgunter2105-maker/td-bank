@@ -1,0 +1,320 @@
+
+
+//Auto Tab Functionality 
+var isNS = (navigator.appName.indexOf("Netscape")!=-1);
+
+
+function autoTab(input,len, e)
+{
+	var keyCode = (isNS) ? e.which : e.keyCode; 
+	var filter = (isNS) ? [0,8,9] : [0,8,9,16,17,18,37,38,39,40,46];
+	if(input.value.length >= len && !containsElement(filter,keyCode)) {
+	input.value = input.value.slice(0, len);
+	input.form[(getIndex(input)+1) % input.form.length].focus();
+	}
+}
+
+
+function containsElement(arr, ele) {
+	var found = false, index = 0;
+	while(!found && index < arr.length)
+	if(arr[index] == ele)
+	found = true;
+	else
+	index++;
+	return found;
+}
+
+function getIndex(input) {
+	var index = -1, i = 0, found = false;
+	while (i < input.form.length && index == -1)
+	if (input.form[i] == input)index = i;
+	else i++;
+	return index;
+}
+
+
+/* Auto Tab Ends  */
+
+
+function NumNoDecimalAndDashes(e)
+{
+alert(e);
+	var key;
+	var keychar;
+
+	if (window.event)
+		key = window.event.keyCode;
+	else if (e)
+		key = e.which;
+	else
+		return true;
+	
+	keychar = String.fromCharCode(key);
+	keychar = keychar.toLowerCase();
+
+	// control keys
+	if ((key==null) || (key==0) || (key==8) || 
+		(key==9) || (key==13) || (key==27) )
+	return true;
+
+	// alphas, numbers, Space & #
+	else if ((("0123456789-").indexOf(keychar) > -1))
+	return true;
+	else
+	return false;
+}
+
+function NumNoDecimal(e)
+{
+	var key;
+	var keychar;
+
+	if (window.event)
+		key = window.event.keyCode;
+	else if (e)
+		key = e.which;
+	else
+		return true;
+	
+	keychar = String.fromCharCode(key);
+	keychar = keychar.toLowerCase();
+
+	// control keys
+	if ((key==null) || (key==0) || (key==8) || 
+		(key==9) || (key==13) || (key==27) )
+	return true;
+
+	// alphas, numbers, Space & #
+	else if ((("0123456789").indexOf(keychar) > -1))
+	return true;
+	else
+	return false;
+}
+
+
+
+/* Clear value in Text item */
+function ClearForm(){
+
+	var form, elements, i, elm; 
+	form = document.getElementById  ? document.getElementById(document.forms[0])  : document.forms[document.forms[0]]; 
+    		
+	if (document.getElementsByTagName)
+	{
+		elements = document.forms[0].getElementsByTagName('input');
+		
+		for( i=0, elm; elm=elements.item(i++); )
+		{
+			if (elm.getAttribute('type') == "text")
+			{
+				elm.value = '';
+			}
+			
+			if (elm.getAttribute('type') == "password")
+			{
+				elm.value = '';
+			}
+		}
+		
+		elements = document.forms[0].getElementsByTagName('select');
+		
+		for( i=0, elm; elm=elements.item(i++); )
+		{
+			elm.options.selectedIndex=0;
+		}
+	}
+	
+	return ;
+}	 
+
+
+	function CompileControl()
+	{
+		var strVal = '';
+		var strHidCtrl;
+		
+		//No of Argument
+		var args = CompileControl.arguments;
+		
+		//Hidden Control 
+		strHidCtrl = args.length;
+	
+		for(i=0; i<args.length-1; i++)
+		{
+			strVal += document.getElementById(args[i]).value.toString();			
+		}		
+		
+		document.getElementById(args[strHidCtrl-1]).value = strVal;		
+	}
+	
+
+
+//Alert messages
+function showAlert(alertLoc,alertMsg) {
+	var obj = document.getElementById(alertLoc);
+	var curleft = curtop = 0;
+	if (obj.offsetParent) {
+		curleft = obj.offsetLeft;
+		curtop = obj.offsetTop;
+		while (obj = obj.offsetParent) {
+			curleft += obj.offsetLeft;
+			curtop += obj.offsetTop;
+		}
+	}
+	var msg = document.getElementById(alertMsg);
+	msg.style.left = curleft + 16 + "px";
+	msg.style.top = curtop + 4 + "px";
+	msg.style.position = "absolute";
+	msg.style.display = "block";
+}
+    
+function hideAlert(alertMsg) {     
+   document.getElementById(alertMsg).style.display = "none"; 
+} 
+	
+function ClearAllControls()
+{
+  for (i=0; i<document.forms[0].length; i++)
+  {
+    doc = document.forms[0].elements[i];
+    switch (doc.type)
+    {
+        case "text" :
+                doc.value = "";
+                break;
+          case "checkbox" :
+                doc.checked = false;
+                break;   
+          case "radio" :
+                doc.checked = false;
+                break;               
+          case "select-one" :
+                doc.options[doc.selectedIndex].selected = false;
+                break;                     
+          case "select-multiple" :
+                while (doc.selectedIndex != -1)
+                {                
+                  indx = doc.selectedIndex;
+                  doc.options[indx].selected = false;
+                }
+                doc.selected = false;
+                break;
+                   
+          default :
+                break;
+    }
+  }
+}
+
+function ClearControl(ele)
+{
+   ele.value="";
+}	
+
+
+function ShowSpeedBump(d, sUrl) {
+if(d.length < 1) { return; }
+document.getElementById(d).style.display = "block";
+	
+	if ( (sUrl != null) && (sUrl.length > 0) )
+	{
+		document.getElementById("HrfSpeedBumpURL").href = sUrl;
+	}
+}
+
+function HideSurveyItems(SelectValue, d, delimit) {
+	if(d.length < 1) { 
+		return; 
+		}
+
+		var SplitResult = d.split(',');
+
+		for(i = 0; i < SplitResult.length; i++)
+		{	
+			if ( SelectValue == 'Yes' )			
+				document.getElementById(SplitResult[i]).style.display = "";	
+			else
+				document.getElementById(SplitResult[i]).style.display = "none";				
+		}
+}
+
+function makeAjaxRequest(url, parameters, successCallback, errorCallback) {
+    $.ajax({
+        type: "POST",
+        url: url, 
+        data: parameters, 
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(response)
+        {
+            if (response && response.hasOwnProperty("d"))
+                successCallback(response.d);
+            else
+                successCallback(response);
+        },
+        error: function(xhr, ajaxOptions, thrownError) 
+        {
+            errorCallback(xhr, ajaxOptions, thrownError);
+        }
+    });
+}
+
+function makeAjaxRequestSynchronous(url, parameters, successCallback, errorCallback) {
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: url,
+        data: parameters,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response && response.hasOwnProperty("d"))
+                successCallback(response.d);
+            else
+                successCallback(response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            errorCallback(xhr, ajaxOptions, thrownError);
+        }
+    });
+}
+
+function CheckForIllegalCharacterEntry(e) {
+
+    var keyCode;
+    var keyChar;
+
+    if (window.event) {
+        keyCode = window.event.keyCode;
+    }
+    else if (e) {
+        keyCode = e.which;
+    }
+
+    else {
+        return true;
+    }
+
+    keyChar = String.fromCharCode(keyCode);
+    keyChar = keyChar.toUpperCase();
+    if (("<>").indexOf(keyChar) > -1) {
+
+        return false;
+    }
+    else {
+
+        return true;
+    }
+
+}
+
+/* removes illegal characters from the input control in case user copy/pastes them */ 
+function RemoveIllegalCharacters(inputControl) {
+
+    var initValue = inputControl.value;
+    var outputValue = initValue.replace('<', '').replace('>', '');
+    if (initValue != outputValue) {
+        inputControl.value = outputValue;
+    }
+}
